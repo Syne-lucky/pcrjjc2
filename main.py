@@ -590,7 +590,7 @@ async def bind_add(session):
             }
             reply = '添加成功！'
             if gid == 0:
-                bind_cache[qid]["private"] == True
+                bind_cache[qid]["private"] = True
                 if len(friendList):
                     await renew_friendlist()
                 if qid in friendList:
@@ -601,7 +601,7 @@ async def bind_add(session):
                     if pri_user >= 3:
                         reply += '私聊推送用户已达上限！无法开启私聊推送。你可以发送“在本群推送”，改为群聊推送。'
                     else:
-                        bind_cache[qid]["notice_on"] == True
+                        bind_cache[qid]["notice_on"] = True
                         reply_adm = f'''{qid}添加了私聊pcrjjc推送'''
                         await bot.send_private_msg(user_id = adm_list[0], message = reply_adm)
                         reply += '已为您开启推送。由于是私聊推送，已通知管理员！'
