@@ -395,7 +395,7 @@ async def renew_pcrid_list():
             if bind_cache[qid]["notice_on"] == False:
                 continue
             else:
-                if qid not in copy_friendList:
+                if qid not in copy_friendList and bind_cache[qid]["private"]:
                     bind_cache[qid]["notice_on"] = False
                     continue
                 for i in bind_cache[qid]["pcrid"]:
@@ -914,7 +914,7 @@ async def load_query(session):
             else:
                 qid_notice_on_group += 1
                 pcrid_num_group += len(bind_cache[qid]['pcrid'])
-    msg = f'''小真步的负载：\n群聊用户数量：{qid_notice_on_group} 群聊绑定的uid：{pcrid_num_group}个\n私聊用户数量：{qid_notice_on_private} 私聊绑定的uid：{pcrid_num_private}个\n昨天推送次数：{yesterday_notice} 今天推送次数：{today_notice}'''
+    msg = f'''pcrjjc负载：\n群聊用户数量：{qid_notice_on_group} 群聊绑定的uid：{pcrid_num_group}个\n私聊用户数量：{qid_notice_on_private} 私聊绑定的uid：{pcrid_num_private}个\n昨天推送次数：{yesterday_notice} 今天推送次数：{today_notice}'''
     pic = image_draw(msg)
     await session.send(f'[CQ:image,file={pic}]')
     
