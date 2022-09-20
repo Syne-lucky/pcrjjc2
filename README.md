@@ -27,6 +27,6 @@ C:\Users\Administrator\AppData\Local\Programs\Python\Python38\lib\site-packages\
   warnings.warn(f"Command {cmd_name} already exists")
 
 ps：感谢路路的自动过验证码的服务器。
-有问题可以在星乃群（367501912）找那个ue头像的（3588116504）。
+有问题可以在星乃群~~（367501912）~~（761100284）找那个ue头像的（3588116504）。
 
 ![help](https://user-images.githubusercontent.com/86869355/190118922-da275848-5991-4dc5-9aed-2e2a7a77fd85.jpg)
