@@ -407,7 +407,7 @@ async def renew_pcrid_list():
 
 @sv.scheduled_job('cron', hour='5')
 def clear_ranking_rise_time():
-    global cache, today_notice ,yesterday_notice
+    global cache, today_notice, yesterday_notice, pcrid_list_cron1, pcrid_list_cron2
     yesterday_notice = today_notice
     today_notice = 0
     cache_del = []
