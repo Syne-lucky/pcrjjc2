@@ -19,7 +19,7 @@
 3）在cron0~2的accoun.json里面填入pcr查询号（过了新手教程就行，不用解锁jjc）
 
 注：默认2线程，cron0手动查询使用，别的定时查询用。可以自己加线程。n个线程需要n+1个pcr查询号。默认5秒查询一次。
-短时间内太多私聊，可能导致封号。默认最多3个用户使用私聊推送，你可以把上限改成5，再多就不建议了。实测14：56~15：01给>5个qq发送>15条私聊消息，可能就会导致封号。有用户开启私聊推送的时候，bot会私聊通知主人。
+短时间内太多私聊，可能导致封号。默认最多3个用户使用私聊推送，你可以把上限改成5，再多就不建议了。如果用户都是不怎么卡点击剑的，上限可以设置的更高，但有风险！实测14：56~15：01给>5个qq发送>15条私聊消息，可能就会导致封号。有用户开启私聊推送的时候，bot会私聊通知主人。
 会有3条指令重复注册的warning，无视就行，目前不影响使用。手动过验证码的部分有问题，如果路路的自动过验证码服务器寄了，会导致本插件不可用！欢迎大佬改了pr。
 C:\Users\Administrator\AppData\Local\Programs\Python\Python38\lib\site-packages\nonebot\command\__init__.py:224: UserWarning: Command ('validate0',) already exists
   warnings.warn(f"Command {cmd_name} already exists")
