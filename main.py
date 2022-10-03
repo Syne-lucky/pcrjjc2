@@ -117,7 +117,7 @@ async def sendNotice(new:int, old:int, pcrid:int, noticeType:int):   #noticeType
     else:
         jjc_log_new = (timeStamp, noticeType, new, old)
         if pcrid in jjc_log:
-            if len(jjc_log[pcrid]) >= 20:
+            if len(jjc_log[pcrid]) >= 60:
                 del jjc_log[pcrid][0]
             jjc_log[pcrid].append(jjc_log_new)
         else:
@@ -224,9 +224,9 @@ async def jjc_log_query(session):
         jjc_log_cache_num = len(jjc_log_cache)
         if jjc_log_cache_num:
             jjc_log_cache.sort(key = lambda x:x[0], reverse=True)        
-            if jjc_log_cache_num > 50:
+            if jjc_log_cache_num > 100:
                 too_long = True
-                jjc_log_cache_num = 50
+                jjc_log_cache_num = 100
             for i in range(jjc_log_cache_num):
                 timeStamp = jjc_log_cache[i][0]
                 timeArray = time.localtime(timeStamp)
@@ -395,7 +395,7 @@ async def renew_pcrid_list():
             if bind_cache[qid]["notice_on"] == False:
                 continue
             else:
-                if qid not in copy_friendList and bind_cache[qid]["private"]:
+                if qid not in copy_friendList:
                     bind_cache[qid]["notice_on"] = False
                     continue
                 for i in bind_cache[qid]["pcrid"]:
@@ -410,12 +410,15 @@ def clear_ranking_rise_time():
     global cache, today_notice ,yesterday_notice
     yesterday_notice = today_notice
     today_notice = 0
+    cache_del = []
     for pcrid in cache:
         if pcrid in pcrid_list_cron1 or pcrid in pcrid_list_cron2:
             cache[pcrid][3] = 0
             cache[pcrid][4] = 0
         else:
-            del cache[pcrid]
+            cache_del.append(pcrid)
+    for pcrid in cache_del:
+        del cache[pcrid]
             
 async def schedule_query_processing(pcrid:int, arena_rank:int, grand_arena_rank:int, last_login_time:int):
     res = [arena_rank, grand_arena_rank, last_login_time, 0, 0]     #后面两个0：jjc/pjjc今日排名上升次数
@@ -914,7 +917,7 @@ async def load_query(session):
             else:
                 qid_notice_on_group += 1
                 pcrid_num_group += len(bind_cache[qid]['pcrid'])
-    msg = f'''pcrjjc负载：\n群聊用户数量：{qid_notice_on_group} 群聊绑定的uid：{pcrid_num_group}个\n私聊用户数量：{qid_notice_on_private} 私聊绑定的uid：{pcrid_num_private}个\n昨天推送次数：{yesterday_notice} 今天推送次数：{today_notice}'''
+    msg = f'''小真步的负载：\n群聊用户数量：{qid_notice_on_group} 群聊绑定的uid：{pcrid_num_group}个\n私聊用户数量：{qid_notice_on_private} 私聊绑定的uid：{pcrid_num_private}个\n昨天推送次数：{yesterday_notice} 今天推送次数：{today_notice}'''
     pic = image_draw(msg)
     await session.send(f'[CQ:image,file={pic}]')
     
@@ -935,8 +938,6 @@ async def group_set(session):
             reply = '设置成功！已为您开启推送。'
             save_binds()   
             bind_change = True
-    else:
-        reply = '您还没有绑定竞技场！'
     await session.send(reply)
 
 @on_command('private_notice',aliases=('换私聊推送'),only_to_me= False)
