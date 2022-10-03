@@ -27,3 +27,5 @@ C:\Users\Administrator\AppData\Local\Programs\Python\Python38\lib\site-packages\
 ps：感谢路路的自动过验证码的服务器。
 有问题可以在星乃群（813563151）找那个春田头像的（3588116504）。
 免费jjcbot群498774643。
+
+![](C:\Users\zly\AppData\Roaming\marktext\images\2022-10-03-14-20-07-_{O6~]NXY5N7ZQ39I%RZ91I.PNG)
