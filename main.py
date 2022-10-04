@@ -785,7 +785,7 @@ async def on_query_arena_all(session):
     qid = str(session.ctx['user_id'])
     msg = str(session.ctx['message'])
     try:
-        ret = re.match(r'^ ?详细查询 ?(\d)$', msg)
+        ret = re.match(r'^ ?详细查询 ?(.*)$', msg)
         id = ret.group(1)
     except:
         await session.send('请在详细查询后带上uid或编号', at_sender=True)
@@ -797,7 +797,7 @@ async def on_query_arena_all(session):
             if not qid in bind_cache:
                 await session.send( '您还未绑定竞技场', at_sender=True)
                 return
-            elif pcrid_num < len(id):
+            elif pcrid_num < int(id):
                 await session.send('输入的序号超出范围，可发送竞技场查询查看你的绑定', at_sender=True)
                 return
             else:
