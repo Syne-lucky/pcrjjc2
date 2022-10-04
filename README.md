@@ -10,11 +10,11 @@
 1）按照注释，填写main.py第16~18行
 第68、69行，填写ban_group和ban_qq（黑名单）
 
-2）下载字体文件 sarasa-mono-sc-regular.ttf
-链接：https://pan.baidu.com/s/12syDRW6Jx-0IlPJKPM5fcA 
-提取码：8080
-放在合适的位置，建议放res文件夹。
-在text2img.py填入这个字体文件的路径
+~~2）下载字体文件 sarasa-mono-sc-regular.ttf~~
+~~链接：https://pan.baidu.com/s/12syDRW6Jx-0IlPJKPM5fcA~~
+~~提取码：8080~~
+~~放在合适的位置，建议放res文件夹。~~
+~~在text2img.py填入这个字体文件的路径~~
 
 3）在cron0~2的accoun.json里面填入pcr查询号（过了新手教程就行，不用解锁jjc）
 

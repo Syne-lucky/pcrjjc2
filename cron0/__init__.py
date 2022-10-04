@@ -132,6 +132,15 @@ async def query0(id: int):
         res = (await client.callapi('/profile/get_profile', {'target_viewer_id': id}))['user_info']
         return res
 
+async def query0_detail(id: int):
+    if validating:
+        raise ApiException('账号被风控，请联系管理员输入验证码并重新登录', -1)
+    async with qlck1:
+        while client.shouldLogin:
+            await client.login()
+        res = (await client.callapi('/profile/get_profile', {'target_viewer_id': id}))
+        return res
+
 
 def save_binds():
     with open(config, 'w') as fp:

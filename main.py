@@ -1,4 +1,6 @@
 from hoshino import Service, priv
+from hoshino.util import pic2b64
+from hoshino.typing import NoticeSession, MessageSegment
 from .text2img import image_draw
 from hoshino.typing import NoticeSession, CQHttpError
 from json import load, dump, dumps, loads
@@ -9,9 +11,10 @@ from .safeservice import SafeService
 from copy import deepcopy
 import re
 import time
-from .cron0.__init__ import query0
+from .cron0.__init__ import query0, query0_detail, ApiException
 from .cron1.__init__ import query1
 from .cron2.__init__ import query2
+from .create_img import generate_info_pic, generate_support_pic
 from nonebot import on_command, get_bot
 bot_list=[2500831574]           #填bot的qq号
 bot_name=['小真步']            #填bot的昵称
@@ -43,6 +46,7 @@ jjc/pjjc当天排名上升次数、最后登录时间。
 3）开启/关闭竞技场推送（不会删除绑定）
 4）清空竞技场绑定
 5）竞技场查询[uid]（uid可省略）
+6）详细查询[uid或序号]（不可省略）
 6）竞技场订阅状态
 7）竞技场修改昵称 [绑定的序号] [新昵称] 
 8）竞技场设置[开启/关闭][订阅内容][绑定的序号]
@@ -774,6 +778,47 @@ async def manual_query(session):
         #pic = await to_img_msg(st,title=f'''{name}的查询结果''')
         pic = image_draw(st)
         await session.send(f'[CQ:image,file={pic}]')
+
+@on_command('detailed_query',patterns=('^详细查询'), only_to_me=False)
+async def on_query_arena_all(session):
+    global bind_cache, lck
+    qid = str(session.ctx['user_id'])
+    msg = str(session.ctx['message'])
+    try:
+        ret = re.match(r'^ ?详细查询 ?(\d)$', msg)
+        id = ret.group(1)
+    except:
+        await session.send('请在详细查询后带上uid或编号', at_sender=True)
+        return
+    pcrid_num = len(bind_cache[qid]["pcrid"])
+
+    async with lck:
+        if len(id) < 13:
+            if not qid in bind_cache:
+                await session.send( '您还未绑定竞技场', at_sender=True)
+                return
+            elif pcrid_num < len(id):
+                await session.send('输入的序号超出范围，可发送竞技场查询查看你的绑定', at_sender=True)
+                return
+            else:
+                id = bind_cache[qid]['pcrid'][int(id)-1]
+        try:
+            res = await query0_detail(id)
+            sv.logger.info('开始生成竞技场查询图片...') # 通过log显示信息
+            # result_image = await generate_info_pic(res, cx)
+            result_image = await generate_info_pic(res)
+            result_image = pic2b64(result_image) # 转base64发送，不用将图片存本地
+            result_image = MessageSegment.image(result_image)
+            result_support = await generate_support_pic(res)
+            result_support = pic2b64(result_support) # 转base64发送，不用将图片存本地
+            result_support = MessageSegment.image(result_support)
+            sv.logger.info('竞技场查询图片已准备完毕！')
+            try:
+                await session.send( f"\n{str(result_image)}\n{result_support}", at_sender=True)
+            except Exception as e:
+                sv.logger.info("do nothing")
+        except ApiException as e:
+            await session.send( f'查询出错，{e}', at_sender=True)
         
 @on_command('status_query',aliases=('竞技场订阅状态'), only_to_me=False)
 async def status_query(session):
