@@ -1,4 +1,4 @@
-暂时停止维护。请使用环奈的pjrjjc2，绑定的bind.json可以直接复制过去…不用重新绑定。https://github.com/SonderXiaoming/pcrjjc_huannai
+暂时停止维护。请使用环奈的pjrjjc2，绑定的binds.json可以直接复制过去…不用重新绑定。https://github.com/SonderXiaoming/pcrjjc_huannai
 
 基于怡宝魔改的多线程自动过验证码的jjc2魔改。
 
