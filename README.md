@@ -1,3 +1,5 @@
+暂时停止维护。请使用环奈的pjrjjc2，绑定的bind.json可以直接复制过去…不用重新绑定。https://github.com/SonderXiaoming/pcrjjc_huannai
+
 基于怡宝魔改的多线程自动过验证码的jjc2魔改。
 
 警告：本插件代码质量很差，介意请使用[公版pcrjjc2](https://github.com/cc004/pcrjjc2)。目前手动过验证码的部分有问题，如果路路的自动过验证码服务器寄了，会导致本插件不可用！欢迎大佬改了pr。
